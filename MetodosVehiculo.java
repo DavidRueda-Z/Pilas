@@ -28,7 +28,15 @@ public class MetodosVehiculo {
             }
         }
         MostrarPila(pila);
-        pila = Eliminar(pila);
+        int opc = Integer.parseInt(JOptionPane.showInputDialog("Ingrese \n1: Consultar \n2: Eliminar \n3: Modificar \n4:Salir"));
+        while(opc != 1  && opc != 2 && opc !=3 && opc != 4)
+        {
+            System.out.println("Dato erroneo, digite una opcion correcta");
+            opc = sc.nextInt();
+        }
+
+        pila = AccionesRegistro(pila, opc);
+        MostrarPila(pila);
         
     }
 
@@ -45,27 +53,56 @@ public class MetodosVehiculo {
 
     public Stack<ObjVehiculo> Eliminar(Stack<ObjVehiculo> pila)
     {   
-
-        boolean eliminado = false;
-        String dato = "";
-        dato = JOptionPane.showInputDialog("Ingrese el dato que desea eliminar: ");
+        String dato = JOptionPane.showInputDialog("Ingrese el dato que desea eliminar: ");
 
         for (ObjVehiculo item : pila) {
             if(item.getMarca().equalsIgnoreCase(dato))
             {
-                pila.pop();
-                eliminado = true;
-            }
-            
+                pila.remove(item);
+                System.out.println("Registro eliminado");
+            } 
         }
-        if(eliminado)
-        {
-            dato = "Registro elimnado con exito";
-        }
-        else
-        {
-            dato = "Registro no encontrado";
-        }
+        
         return pila;
     }
+
+    public Stack<ObjVehiculo>  AccionesRegistro(Stack<ObjVehiculo> pila, int opc)
+    {
+        String dato = "";
+        if(opc == 1)
+            {
+                dato = JOptionPane.showInputDialog("Ingrese el dato que desea buscar");
+            }else if(opc == 2)
+        {
+            dato = JOptionPane.showInputDialog("Ingrese el dato que desea eliminar");
+        }else if(opc == 3)
+            {
+                dato = JOptionPane.showInputDialog("Ingrese el dato que desea modificar");
+            }
+            else
+            {
+                System.out.println("Hasta luego");
+            }
+            
+
+            for(ObjVehiculo item: pila)
+            {
+                if(item.getMarca().equalsIgnoreCase(dato))
+                {
+                    if(opc==1)
+                    {
+                        System.out.println("El registro se encuentra y es " +item.getMarca() + " " + item.getPrecio());
+                    }
+                    else if(opc==2)
+                    {
+                        pila.remove(item);
+                    }
+                    else if(opc==3) 
+                    {
+                        item.setMarca(JOptionPane.showInputDialog("Ingrese la marca"));
+                    }
+                }
+            }
+                return pila;
+            }
 }
