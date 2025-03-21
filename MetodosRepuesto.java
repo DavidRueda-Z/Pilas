@@ -1,7 +1,5 @@
 import java.util.Scanner;
 import java.util.Stack;
-
-import javax.print.attribute.standard.JobHoldUntil;
 import javax.swing.JOptionPane;
 
 public class MetodosRepuesto {
@@ -10,33 +8,17 @@ public class MetodosRepuesto {
     Scanner sc = new Scanner(System.in);
 
     public void LlenarStock() {
-        
+        // Creo pila
         boolean bandera = true;
         while (bandera) {
+            ObjRepuesto obj = new ObjRepuesto();
 
-            String referencia = JOptionPane.showInputDialog("Ingrese la Referencia del repuesto: ");
-            String marca = JOptionPane.showInputDialog("Ingrese la Marca del repuesto: ");
-            int cantidad = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la cantidad del repuesto: "));
-            double precio =Double.parseDouble(JOptionPane.showInputDialog("Ingrese el precio del repuesto: "));
+            obj.setReferencia(JOptionPane.showInputDialog("Ingrese la Referencia del repuesto: "));
+            obj.setMarca(JOptionPane.showInputDialog("Ingrese la Marca del repuesto: "));
+            obj.setCantidad(Integer.parseInt(JOptionPane.showInputDialog("Ingrese la cantidad del repuesto: ")));
+            obj.setPrecio(Double.parseDouble(JOptionPane.showInputDialog("Ingrese el precio del repuesto: ")));
 
-            boolean existe= false;
-            for (ObjRepuesto item : pila) {
-                if(item.getReferencia().equalsIgnoreCase(referencia) && item.getMarca().equalsIgnoreCase(marca) && item.getPrecio() == precio)
-                {
-                    item.setCantidad(item.getCantidad() + cantidad);
-                    JOptionPane.showMessageDialog(null, "Cantidad actualizada");
-                    existe = true;
-                    break;
-                }
-            }
-
-            if(!existe)
-            {
-                ObjRepuesto obj = new ObjRepuesto(referencia, marca, cantidad, precio);
-                pila.push(obj);
-                JOptionPane.showMessageDialog(null, "Nuevo registro agregado con exito");
-            }
-            
+            pila.push(obj);
 
             String opt = JOptionPane.showInputDialog("¿Desea ingresar mas registros? SI/NO");
             if (opt.equalsIgnoreCase("NO")) {
